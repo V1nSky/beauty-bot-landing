@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бот для записи | V1nSky</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { transition: background-color 0.3s ease, color 0.3s ease; }
+        .bento-card { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease, border-color 0.3s ease; }
+        .bento-card:hover { transform: translateY(-2px); }
+        .fade-in { animation: fadeIn 0.5s ease forwards; opacity: 0; }
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 antialiased p-4 md:p-10 min-h-screen">
+
+<main class="max-w-4xl mx-auto space-y-6 relative">
+
+    <!-- theme toggle -->
+    <button id="themeToggle" class="absolute top-0 right-0 p-2 md:-mt-4 md:-mr-4 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all text-slate-600 dark:text-slate-300 flex items-center justify-center w-10 h-10 z-10">
+        <svg id="sunIcon" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+    </button>
+
+    <!-- HERO -->
+    <header class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 md:p-8 shadow-sm hover:shadow-md">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-2xl">💅</span>
+                    <span class="px-3 py-1 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 text-xs font-bold rounded-lg border border-violet-100 dark:border-violet-800/50 uppercase tracking-wider">Telegram Bot</span>
+                    <span class="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        в работе за 3–5 дней
+                    </span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+                    Бот для записи клиентов
+                </h1>
+                <p class="text-slate-500 dark:text-slate-400 text-sm md:text-base max-w-md">
+                    Клиентки записываются сами. Бот напоминает. Отзывы публикуются в канал.<br>Ты просто получаешь уведомление.
+                </p>
+            </div>
+            <div class="flex flex-col gap-2 w-full md:w-auto shrink-0">
+                <a href="https://t.me/vqnsdev" target="_blank" class="text-center bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition whitespace-nowrap">
+                    Написать мне
+                </a>
+                <a href="https://t.me/commentsV1nSky" target="_blank" class="text-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition whitespace-nowrap">
+                    Отзывы
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FEATURES GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- feature 1 -->
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="text-2xl mb-3">📅</div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-1.5">Запись без лички</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Клиентка сама открывает бота, выбирает дату в календаре и время. Занятые слоты скрываются автоматически.
+            </p>
+        </div>
+
+        <!-- feature 2 -->
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="text-2xl mb-3">🔔</div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-1.5">Напоминания сами</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                За 24 часа до визита бот пишет клиентке в Telegram. Больше не надо писать вручную каждый вечер.
+            </p>
+        </div>
+
+        <!-- feature 3 -->
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="text-2xl mb-3">⭐</div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-1.5">Отзывы в канал</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Клиентка пишет отзыв в боте → ты одобряешь → он публикуется в канал с <code class="text-xs bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">#отзыв</code>.
+            </p>
+        </div>
+
+        <!-- feature 4 -->
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="text-2xl mb-3">🔒</div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-1.5">Проверка подписки</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Записаться можно только подписавшись на твой канал. Аудитория растёт автоматически.
+            </p>
+        </div>
+
+        <!-- feature 5 -->
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="text-2xl mb-3">⚙️</div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-1.5">Управление из бота</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                Прайс, портфолио, расписание — всё меняется кнопками прямо в Telegram. Без программиста.
+            </p>
+        </div>
+
+        <!-- feature 6 -->
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="text-2xl mb-3">💬</div>
+            <h3 class="font-semibold text-slate-900 dark:text-white mb-1.5">Пожелания к записи</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                При записи клиентка описывает дизайн прямо в боте. Ты получаешь бриф вместе с уведомлением.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 md:p-8 shadow-sm">
+        <h2 class="text-lg md:text-xl font-semibold text-slate-900 dark:text-white mb-6">Как это выглядит для клиентки</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex flex-col items-center text-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-sm font-bold text-slate-600 dark:text-slate-300">1</div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Подписывается на канал</p>
+            </div>
+            <div class="flex flex-col items-center text-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-sm font-bold text-slate-600 dark:text-slate-300">2</div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Выбирает дату и время в боте</p>
+            </div>
+            <div class="flex flex-col items-center text-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-sm font-bold text-slate-600 dark:text-slate-300">3</div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Получает напоминание за 24ч</p>
+            </div>
+            <div class="flex flex-col items-center text-center gap-2">
+                <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-sm font-bold text-slate-600 dark:text-slate-300">4</div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Оставляет отзыв в канал</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 md:p-8 shadow-sm hover:shadow-md">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-slate-900 dark:text-white text-lg">Базовый</h3>
+                <span class="text-2xl font-bold text-slate-900 dark:text-white">5 000 ₽</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 mb-6">
+                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Запись через календарь</li>
+                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Напоминания за 24 часа</li>
+                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Проверка подписки на канал</li>
+                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Прайс и портфолио в боте</li>
+                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Уведомления мастеру</li>
+                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Админ-панель</li>
+            </ul>
+            <a href="https://t.me/vqnsdev" target="_blank" class="block text-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                Написать мне
+            </a>
+        </div>
+
+        <div class="bento-card bg-slate-900 dark:bg-white border border-slate-800 dark:border-slate-100 rounded-[1.5rem] p-6 md:p-8 shadow-sm hover:shadow-md">
+            <div class="flex items-center justify-between mb-1">
+                <h3 class="font-semibold text-white dark:text-slate-900 text-lg">Расширенный</h3>
+                <span class="px-2 py-0.5 bg-violet-500 text-white text-xs font-bold rounded-lg">ХИТ</span>
+            </div>
+            <div class="text-2xl font-bold text-white dark:text-slate-900 mb-4">7 000 ₽</div>
+            <ul class="space-y-2 text-sm text-slate-300 dark:text-slate-600 mb-6">
+                <li class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Всё из базового</li>
+                <li class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Система отзывов с модерацией</li>
+                <li class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Пожелания к дизайну при записи</li>
+                <li class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Экспорт расписания одной кнопкой</li>
+                <li class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Реферальная программа</li>
+                <li class="flex items-center gap-2"><span class="text-green-400 font-bold">✓</span> Деплой на сервер</li>
+            </ul>
+            <a href="https://t.me/vqnsdev" target="_blank" class="block text-center bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition">
+                Написать мне
+            </a>
+        </div>
+
+    </div>
+
+    <!-- STACK + REVIEWS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <h2 class="text-base font-semibold text-slate-900 dark:text-white mb-4">Стек</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">Python</span>
+                <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">aiogram 3</span>
+                <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">SQLite</span>
+                <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">APScheduler</span>
+                <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">FSM</span>
+                <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full text-xs font-medium">Docker</span>
+            </div>
+        </div>
+
+        <div class="bento-card md:col-span-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:shadow-md">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Отзывы</h2>
+                <a href="https://t.me/commentsV1nSky" target="_blank" class="text-xs text-violet-500 hover:underline">Все отзывы →</a>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-slate-50 dark:bg-slate-800/40 rounded-xl p-4 border border-slate-100 dark:border-slate-700/50">
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">"Всё работает чётко, клиентки сами записываются и больше не пишут мне в 23:00. Рекомендую 🔥"</p>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">— мастер маникюра, СПб</p>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800/40 rounded-xl p-4 border border-slate-100 dark:border-slate-700/50">
+                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">"Сделал быстро, всё объяснил, бот работает стабильно уже месяц"</p>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">— мастер бровей, Москва</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <section class="bento-card bg-slate-900 dark:bg-slate-800 border border-slate-800 dark:border-slate-700 rounded-[1.5rem] p-6 md:p-8 shadow-sm hover:shadow-md text-center">
+        <h2 class="text-xl md:text-2xl font-bold text-white mb-2">Готов сделать под тебя</h2>
+        <p class="text-slate-400 text-sm mb-6 max-w-sm mx-auto">
+            Пиши — расскажу как будет выглядеть твой бот, отвечу на вопросы, покажу пример.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="https://t.me/vqnsdev" target="_blank" class="bg-white text-slate-900 px-8 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition">
+                Написать в Telegram
+            </a>
+            <a href="https://t.me/commentsV1nSky" target="_blank" class="bg-slate-800 dark:bg-slate-700 text-white px-8 py-3 rounded-xl text-sm font-semibold hover:opacity-90 transition border border-slate-700 dark:border-slate-600">
+                Смотреть отзывы
+            </a>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="text-center text-xs text-slate-400 dark:text-slate-600 pb-4">
+        v1nsky · @vqnsdev · autistic systems architect
+    </footer>
+
+</main>
+
+<script>
+    const btn = document.getElementById('themeToggle');
+    const sun = document.getElementById('sunIcon');
+    const moon = document.getElementById('moonIcon');
+    const html = document.documentElement;
+
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark'); sun.classList.remove('hidden'); moon.classList.add('hidden');
+    }
+
+    btn.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        sun.classList.toggle('hidden');
+        moon.classList.toggle('hidden');
+        localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+    });
+</script>
+</body>
+</html>
